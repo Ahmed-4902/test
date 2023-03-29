@@ -8,20 +8,44 @@
 		<link rel="stylesheet" href="main.css" />
 	</head>
 	<body>
-<form method="POST" action="sendmail.php">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required>
+		<form method="POST" action="#">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required />
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required>
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required />
 
-  <label for="message">Message:</label>
-  <textarea id="message" name="message" required></textarea>
+			<label for="message">Message:</label>
+			<textarea id="message" name="message" required></textarea>
 
-  <button type="submit">Send</button>
-</form>
+			<button type="submit">Send</button>
+		</form>
 
-
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="script.js"></script>
+		<script>
+			$(function () {
+				$("form").submit(function (event) {
+					event.preventDefault(); // prevent the form from submitting normally
+
+					var formData = $(this).serialize(); // get the form data
+
+					// send the form data via AJAX
+					$.ajax({
+						type: "POST",
+						url: "sendmail.php", // the URL of your server-side script
+						data: formData,
+						success: function (response) {
+							// handle the success response (e.g. show a "thank you" message)
+							window.location.href = "thank-you.html";
+						},
+						error: function (xhr, status, error) {
+							// handle the error response (e.g. show an error message)
+							console.log(error);
+						},
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
